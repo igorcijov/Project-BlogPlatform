@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - property:
+      name: type.text
+      value: text
+  - include:
+     file: db/changelog/db.hello-spring-1.0.xml
