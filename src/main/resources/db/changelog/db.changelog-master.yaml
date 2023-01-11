@@ -3,4 +3,6 @@ databaseChangeLog:
       name: type.text
       value: text
   - include:
-     file: db/changelog/db.hello-spring-1.0.xml
+      file: db/changelog/changeset/create-users-table.xml
+  - include:
+      file: db/changelog/changeset/create-articles-table.xml

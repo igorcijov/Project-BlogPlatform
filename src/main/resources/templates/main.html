@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog Application with Maven</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+
+<div>
+    <form th:action="@{/add}" th:object="${article}" method="post">
+        <input type="text" name="text" placeholder="Enter the message" />
+        <input type="text" name="tag" placeholder="Enter the tag" />
+
+        <button type="submit">Add</button>
+    </form>
+</div>
+<br>
+<div><b>List of messages</b></div>
+<br>
+<form th:action="@{/filter}" method = "post">
+    <input type="text" name ="filter">
+
+    <button type="submit">Find</button>
+</form>
+
+<table border="1">
+<tr th:each ="article : ${messages}">
+    <td th:utext="${article.id}">...</td>
+    <td th:utext="${article.text}">...</td>
+    <td th:utext="${article.tag}">...</td>
+    <td th:utext="${article.created_date}">...</td>
+</tr>
+</table>
+
+
+
+
+
+<!--
+{{#messages}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{text}}</span>
+        <b>{{tag}}</b>
+        <i>{{created_date}}</i>
+    </div>
+{{/messages}}
+-->
+</body>
+</html>

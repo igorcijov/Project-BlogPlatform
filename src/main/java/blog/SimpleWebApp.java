@@ -1,14 +1,14 @@
-package spring;
+package blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /*
- * Java Pro. Homework #37
+ * Java Pro. BlogPlatform
  *
  * @author Igor Cijov
- * @version 14 Dec 2022
- * Data Validation Spring Boot
+ * @version 11 Jan 2023
+ * Data Validation Spring Boot + Rest Api + Thymeleaf
  *
  */
 

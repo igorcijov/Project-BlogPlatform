@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="igor" id="create table messages">
+        <createTable tableName="article">
+
+            <column name="message_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+
+            <column name="text" type="clob">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="tag" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="edited_date" type="varchar(12)" >
+                <constraints nullable="true" />
+            </column>
+
+            <column name="deleted_date" type="varchar(12)" >
+                <constraints nullable="true" />
+            </column>
+
+            <column name="author_id" type="int" >
+             <!--   <constraints foreignKeyName="article_author_id_user_user_id" references="user(user_id)"/> -->
+            </column>
+
+            <column name="editor_id" type="int" >
+                <constraints nullable="true" />
+            </column>
+
+            <column name="parent_id" type="int" >
+                <constraints nullable="true" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

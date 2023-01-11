@@ -1,4 +1,4 @@
-package spring.util;
+package blog.util;
 
 public class StringUtil {
     public static boolean isEmpty(String value) {

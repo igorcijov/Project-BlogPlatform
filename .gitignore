@@ -27,3 +27,5 @@ replay_pid*
 .gitattributes
 **/.idea
 **target
+recyclebin/
+blog-platform.log*

@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>spring</groupId>
-    <artifactId>hello-spring-boot</artifactId>
-    <version>0.0.37-SNAPSHOT</version>
-    <name>hello-spring-boot</name>
-    <description>Demo project for Spring Boot</description>
+    <artifactId>blog-platform</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>blog-platform</name>
+    <description>Demo project Blog Platform</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -31,6 +31,8 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+
+        <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -46,6 +48,27 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
+        <!-- security -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+            <!-- Temporary explicit version to fix Thymeleaf bug -->
+            <version>3.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Use PostGre Connector -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -84,6 +107,14 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
         </dependency>
+
+<!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mustache</artifactId>
+        </dependency>
+        -->
+
     </dependencies>
 
     <build>
@@ -104,8 +135,8 @@
                         <configuration>
                             <generatorName>spring</generatorName>
                             <inputSpec>${project.basedir}/src/main/resources/openapi/rest-api.yaml</inputSpec>
-                            <apiPackage>spring.controller</apiPackage>
-                            <modelPackage>spring.controller.vo</modelPackage>
+                            <apiPackage>blog.controller</apiPackage>
+                            <modelPackage>blog.controller.vo</modelPackage>
                             <supportingFilesToGenerate>RestApi.java</supportingFilesToGenerate>
                             <generateSupportingFiles>true</generateSupportingFiles>
                             <generateApiTests>false</generateApiTests>
