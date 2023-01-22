@@ -5,7 +5,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="igor" id="create table messages">
-        <createTable tableName="article">
+        <createTable tableName="articles">
 
             <column name="message_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" />

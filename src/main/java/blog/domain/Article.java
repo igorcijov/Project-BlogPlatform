@@ -18,7 +18,7 @@ public class Article {
     @Column(name = "tag")
     private String tag;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+
     @Column(name = "created_date")
     private Date created_date;
 

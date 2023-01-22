@@ -1,11 +1,155 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title> Getting Started: Serving Web Content </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPlatform Project</title>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+}
+
+footer {
+    background-color: #caf0f8;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+a{
+    color:#0077b6;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+/* a:visited{
+    color: #fca311;
+} */
+
+.home_link {
+    background-color: #ffb703;
+}
+
+.home_link:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list {
+    list-style: none;
+    text-align: center;
+    width: 24%;
+    margin: auto;
+    position: relative;
+}
+
+.head_nav_list_item {
+    float: left;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.head_nav_list_item:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list_link {
+    display: block;
+    text-align: center;
+}
+    </style>
+
 </head>
 <body>
-<div>Hello, user</div>
-<a href="/main">Main page</a>
+<div class="main_content" style="min-height: 55em;">
+    <h1 style="background-color: #caf0f8; border: 1px solid #ffbe0b; text-align: center; padding: 5px;">Blog Platform</h1>
+    <hr>
+
+    <nav>
+        <ul class="head_nav_list">
+            <li class="head_nav_list_item home_link"><a href="/" class="head_nav_list_link">Home</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
+            <li class="head_nav_list_item"><a href="/main" class="head_nav_list_link">Log in</a></li>
+        </ul>
+    </nav>
+
+
+
+    <!--
+    <p style="text-align: right;"><a href="/main"><b>Login</b></a>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    -->
+
+
+
+    <!--before-->
+    <div style="box-sizing: inherit; position: static; z-index: auto; float: none; display: table; clear: both; margin-left: 300px; margin-top: 60px;">
+        <div style="width: 75%; box-sizing: inherit; float: left; border-right: 1px solid #ffbe0b; border-bottom: 1px solid #ffbe0b; padding: 10px; position: static;z-index: auto;">
+            <h2>Java Collection</h2>
+            <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+
+
+            </p>
+            <h4 style="text-align: right;">Author: Cijov Igor</h4>
+        </div>
+
+
+        <div style="box-sizing: inherit; float: left; width: 17%; position: static; z-index: auto; margin-left: 30px;">
+            <h2 style="text-align: center;">Themes</h2>
+            <ul id="unordered_list">
+                <li>Article 1</li>
+                <li>Article 2</li>
+                <li>Article 3</li>
+                <li>Article 4</li>
+                <li>Article 5</li>
+                <li>Article 6</li>
+                <li>Article 7</li>
+                <li>Article 8</li>
+                <li>Article 9</li>
+                <li>Article 10</li>
+            </ul>
+        </div>
+        <!--after-->
+    </div>
+
+
+    <div style="margin-top: 30px; width: 60%; margin-left: 300px; position: static;">
+        <p style="color: #fb5607;"><b>To add a comment, please Log in!</b> </p>
+        <hr>
+    </div>
+
+
+    <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;">
+        <p> <b>@user 1</b>
+        </p>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        </p>
+        <a href="add_reply.html"; style="text-align:right;">Reply</a>
+    </div>
+
+</div>
+<footer>
+    <small>© copyright 2023, Author Igor Cijov</small>
+
+</footer>
 </body>
 </html>

@@ -5,10 +5,11 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="igor" id="create table users">
-        <createTable tableName="user">
+        <createTable tableName="users">
 
             <column name="user_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true" foreignKeyName="users_user_id_roles_role_id" references="roles(role_id)"/>
+
             </column>
 
             <column name="username" type="varchar(50)">

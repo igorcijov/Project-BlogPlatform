@@ -3,6 +3,8 @@ databaseChangeLog:
       name: type.text
       value: text
   - include:
+      file: db/changelog/changeset/create-roles-table.xml
+  - include:
       file: db/changelog/changeset/create-users-table.xml
   - include:
       file: db/changelog/changeset/create-articles-table.xml
