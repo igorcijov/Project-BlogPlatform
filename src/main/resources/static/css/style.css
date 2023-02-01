@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+}
+
+footer {
+    background-color: #caf0f8;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+a{
+    color:#0077b6;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+/* a:visited{
+    color: #fca311;
+} */
+
+.home_link {
+    background-color: #ffb703;
+}
+
+.home_link:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list {
+    list-style: none;
+    text-align: center;
+    width: 24%;
+    margin: auto;
+    position: relative;
+}
+
+.head_nav_list_item {
+    float: left;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.head_nav_list_item:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list_link {
+    display: block;
+    text-align: center;
+}

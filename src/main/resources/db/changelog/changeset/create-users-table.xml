@@ -8,19 +8,30 @@
         <createTable tableName="users">
 
             <column name="user_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" foreignKeyName="users_user_id_roles_role_id" references="roles(role_id)"/>
-
-            </column>
-
-            <column name="username" type="varchar(50)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="password" type="varchar(50)">
-                <constraints nullable="false" />
+                <constraints primaryKey="true" nullable="false"/>
             </column>
 
             <column name="active" type="boolean" >
+            </column>
+
+            <column name="password" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="username" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_name" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="email" type="varchar(50)">
+                <constraints nullable="true" />
             </column>
 
         </createTable>

@@ -5,18 +5,21 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="igor" id="create table roles">
-        <createTable tableName="roles">
+        <createTable tableName="user_role">
 
-            <column name="role_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" />
-            </column>
-
-            <column name="user_role" type="varchar(10)">
+            <column name="user_id" type="int">
                 <constraints nullable="false" />
             </column>
 
-
+            <column name="roles" type="varchar(10)">
+            </column>
         </createTable>
-    </changeSet>
 
+        <addForeignKeyConstraint
+                baseTableName="user_role" baseColumnNames="user_id"
+                constraintName="roles_users_id"
+                referencedTableName="users"
+                referencedColumnNames="user_id" />
+
+    </changeSet>
 </databaseChangeLog>

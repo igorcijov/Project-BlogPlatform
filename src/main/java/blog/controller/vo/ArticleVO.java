@@ -1,6 +1,7 @@
 package blog.controller.vo;
 
 import blog.domain.Article;
+import blog.domain.User;
 
 import java.util.Date;
 
@@ -10,27 +11,26 @@ public class ArticleVO {
 
     private String text;
 
+    private String title;
     private String tag;
 
     private Date created_date;
 
-    private String edited_date;
+    private Date edited_date;
 
-    private String deleted_date;
+    private User author_id;
 
-    private int author_id;
+    private User editor_id;
 
-    private int editor_id;
+    private Article parent_id;
 
-    private int parent_id;
-
-    public ArticleVO(int id, String text, String tag, Date created_date, String edited_date, String deleted_date, int author_id, int editor_id, int parent_id) {
+    public ArticleVO(int id, String text, String title, String tag, Date created_date, Date edited_date, User author_id, User editor_id, Article parent_id) {
         this.id = id;
         this.text = text;
+        this.title = title;
         this.tag = tag;
         this.created_date = created_date;
         this.edited_date = edited_date;
-        this.deleted_date = deleted_date;
         this.author_id = author_id;
         this.editor_id = editor_id;
         this.parent_id = parent_id;
@@ -52,6 +52,14 @@ public class ArticleVO {
         this.text = text;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getTag() {
         return tag;
     }
@@ -68,48 +76,40 @@ public class ArticleVO {
         this.created_date = created_date;
     }
 
-    public String getEdited_date() {
+    public Date getEdited_date() {
         return edited_date;
     }
 
-    public void setEdited_date(String edited_date) {
+    public void setEdited_date(Date edited_date) {
         this.edited_date = edited_date;
     }
 
-    public String getDeleted_date() {
-        return deleted_date;
-    }
-
-    public void setDeleted_date(String deleted_date) {
-        this.deleted_date = deleted_date;
-    }
-
-    public int getAuthor_id() {
+    public User getAuthor_id() {
         return author_id;
     }
 
-    public void setAuthor_id(int author_id) {
+    public void setAuthor_id(User author_id) {
         this.author_id = author_id;
     }
 
-    public int getEditor_id() {
+    public User getEditor_id() {
         return editor_id;
     }
 
-    public void setEditor_id(int editor_id) {
+    public void setEditor_id(User editor_id) {
         this.editor_id = editor_id;
     }
 
-    public int getParent_id() {
+    public Article getParent_id() {
         return parent_id;
     }
 
-    public void setParent_id(int parent_id) {
+    public void setParent_id(Article parent_id) {
         this.parent_id = parent_id;
     }
 
     public static ArticleVO valueOf(Article article) {
-        return new ArticleVO(article.getId(), article.getText(), article.getTag(), article.getCreated_date(), article.getEdited_date(), article.getDeleted_date(),
-                article.getAuthor_id(), article.getEditor_id(), article.getParent_id());
+        return new ArticleVO(article.getId(), article.getText(), article.getTitle(), article.getTag(), article.getCreatedDate(), article.getEditedDate(),
+                article.getAuthorId(), article.getEditorId(), article.getParent_id());
     }
 }

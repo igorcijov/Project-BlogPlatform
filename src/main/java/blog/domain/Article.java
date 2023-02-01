@@ -1,11 +1,18 @@
 package blog.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@Table(name="articles", schema = "public")
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,132 +22,59 @@ public class Article {
     @Column(name = "text")
     private String text;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "tag")
     private String tag;
 
-
     @Column(name = "created_date")
-    private Date created_date;
+    private Date createdDate;
 
     @Column(name = "edited_date")
-    private String edited_date;
+    private Date editedDate;
 
-    @Column(name = "deleted_date")
-    private String deleted_date;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
+    private User authorId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "editor_id")
+    private User editorId;
 
-    @Column(name = "author_id")
-    private int author_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_id")
+    private Article parent_id;
 
-    @Column(name = "editor_id")
-    private int editor_id;
+    @Column(name = "parent_id", updatable = false, insertable = false)
+    private Integer parentId;
 
-    @Column(name = "parent_id")
-    private int parent_id;
+    @Column (name = "is_enabled")
+    private boolean isEnabled;
 
-    public Article () {
-
-    }
-
-    public Article(String text, String tag, Date created_date){
+    public Article(User user, String text, String title, String tag, Date createdDate, boolean isEnabled){
+        this.authorId = user;
         this.text=text;
+        this.title=title;
         this.tag = tag;
-        this.created_date=created_date;
+        this.createdDate =createdDate;
+        this.isEnabled = isEnabled;
+
     }
 
-    public Article(int id, String text, String tag, Date created_date, String edited_date, String deleted_date, int editor_id, int parent_id) {
-        this.id = id;
+    public Article(String text, String title, String tag, Date editedDate, User editorUser, boolean isEnabled) {
         this.text = text;
+        this.title = title;
         this.tag = tag;
-        this.created_date = created_date;
-        this.edited_date = edited_date;
-        this.deleted_date = deleted_date;
-        this.editor_id = editor_id;
-        this.parent_id = parent_id;
+        this.editedDate = editedDate;
+        this.editorId = editorUser;
+        this.isEnabled = isEnabled;
     }
 
-    public int getId() {
-        return id;
+    public boolean getIsEnabled() {
+        return isEnabled;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public Date getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
-    }
-
-    public String getEdited_date() {
-        return edited_date;
-    }
-
-    public void setEdited_date(String edited_date) {
-        this.edited_date = edited_date;
-    }
-
-    public String getDeleted_date() {
-        return deleted_date;
-    }
-
-    public void setDeleted_date(String deleted_date) {
-        this.deleted_date = deleted_date;
-    }
-
-    public int getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
-    }
-
-    public int getEditor_id() {
-        return editor_id;
-    }
-
-    public void setEditor_id(int editor_id) {
-        this.editor_id = editor_id;
-    }
-
-    public int getParent_id() {
-        return parent_id;
-    }
-
-    public void setParent_id(int parent_id) {
-        this.parent_id = parent_id;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", created_date='" + created_date + '\'' +
-                ", edited_date='" + edited_date + '\'' +
-                ", deleted_date='" + deleted_date + '\'' +
-                ", author_id=" + author_id +
-                ", editor_id=" + editor_id +
-                ", parent_id=" + parent_id +
-                '}';
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }

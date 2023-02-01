@@ -51,7 +51,7 @@ a:hover{
 .head_nav_list {
     list-style: none;
     text-align: center;
-    width: 24%;
+    width: 36%;
     margin: auto;
     position: relative;
 }
@@ -101,6 +101,35 @@ z-index: 2;
     top:45px;
     margin-bottom: 80px;
 }
+
+.add_form{
+    width: 920px;
+    min-height: 0;
+    box-sizing: inherit;
+    border-radius: 8px;
+    border: 1px solid #ffbe0b;
+    display: block;
+    flex-shrink: 0;
+    margin: auto;
+    background: #fff;
+    max-width: 100%;
+    position: relative;
+    top: 100px;
+    z-index: 2;
+    }
+
+    .add_form2{
+        white-space: normal;
+        padding: 48px;
+        box-sizing: inherit;
+        direction: ltr;
+        font-size: 14px;
+        line-height: 1.4286;
+        position: relative;
+        top:45px;
+        margin-bottom: 80px;
+    }
+
     </style>
 
 </head>
@@ -111,28 +140,36 @@ z-index: 2;
 
     <nav>
         <ul class="head_nav_list">
-            <li class="head_nav_list_item home_link"><a href="/" class="head_nav_list_link">Home</a></li>
+            <li class="head_nav_list_item home_link"><a href="/main" class="head_nav_list_link">Home</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
-            <li class="head_nav_list_item"><a href="/main" class="head_nav_list_link">Log in</a></li>
+            <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
+            <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">ManageUsers</a></li>
+
+            <li>  <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form></li>
         </ul>
     </nav>
 
-    <div class="register_form">
-        <h2 style="text-align: left; position: absolute; left: 45px; top: 10px;">Create your BlogPlatform Account</h2>
-        <div class="register_form2">
-            <form th:action="@{/registration}" th:object="${user}" method="post">
-                <div> <span>  <input type="text" name="firstName" placeholder="First Name"/> </span>
-                    <span><input type="text" name="lastName" placeholder="Last Name"/></span>
+    <div class="add_form">
+        <h2 style="text-align: left; position: absolute; left: 45px; top: 10px;">Add New Post</h2>
+        <div class="add_form2">
+            <form th:action="@{/add}" th:object="${article}" method="post">
+                <div> <span>  <input type="text" name="title" placeholder="Title"/> </span>
+                    <select name="tag">
+                        <option selected>Frontend</option> <option>Backend</option> <option>Linux</option> </select>
+                    <span><input type="radio" name="isEnabled" value="true" checked > Enabled
+    <input type="radio" name="isEnabled" value="false"> Disabled</span>
                 </div>
-                <div style="margin-top: 20px;"><input type="text" name="email" placeholder="E-mail" size="45"/></div>
-                <div style="margin-top: 20px;"> <span>  <input type="text" name="username" placeholder="Username"/> </span>
-                    <span><input type="password" name="password" placeholder="Password"/></span>
-                </div>
+                <div style="margin-top: 20px; height:230px" ><textarea placeholder="Text area" wrap="virtual" name="text" style="resize: none; width: 94%; height: 220px; padding: 12px 20px;"></textarea></div>
 
-                <button type = "submit" style="margin-top: 20px;">Register</button>
+
+                <button type = "submit" style="position: relative;top: 50px;">Add</button>
+                <button type="Reset" value="Clear" style="position: relative;top: 50px;">Clear</button>
             </form>
 
 

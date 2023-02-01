@@ -1,56 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Blog Application with Maven</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPlatform Project</title>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+}
+
+footer {
+    background-color: #caf0f8;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+a{
+    color:#0077b6;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+/* a:visited{
+    color: #fca311;
+} */
+
+.home_link {
+    background-color: #ffb703;
+}
+
+.home_link:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list {
+    list-style: none;
+    text-align: center;
+    width: 36%;
+    margin: auto;
+    position: relative;
+}
+
+.head_nav_list_item {
+    float: left;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.head_nav_list_item:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list_link {
+    display: block;
+    text-align: center;
+}
+
+    </style>
+
 </head>
 <body>
+<div class="main_content" style="min-height: 55em;">
+    <h1 style="background-color: #caf0f8; border: 1px solid #ffbe0b; text-align: center; padding: 5px;">Blog
+        Platform</h1>
+    <hr>
 
-<div>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
-</div>
+    <nav>
+        <ul class="head_nav_list">
+            <li class="head_nav_list_item home_link"><a href="/main" class="head_nav_list_link">Home</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
+            <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
+            <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">ManageUsers</a></li>
 
-<div>
-    <form th:action="@{/add}" th:object="${article}" method="post">
-        <input type="text" name="text" placeholder="Enter the message" />
-        <input type="text" name="tag" placeholder="Enter the tag" />
-
-        <button type="submit">Add</button>
-    </form>
-</div>
-<br>
-<div><b>List of messages</b></div>
-<br>
-<form th:action="@{/filter}" method = "post">
-    <input type="text" name ="filter">
-
-    <button type="submit">Find</button>
-</form>
-
-<table border="1">
-<tr th:each ="article : ${messages}">
-    <td th:utext="${article.id}">...</td>
-    <td th:utext="${article.text}">...</td>
-    <td th:utext="${article.tag}">...</td>
-    <td th:utext="${article.created_date}">...</td>
-</tr>
-</table>
+            <li>  <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form></li>
+        </ul>
+    </nav>
 
 
+    <!--
+    <p style="text-align: right;"><a href="/main"><b>Login</b></a>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    -->
 
 
+    <!--before-->
+    <div style="box-sizing: inherit; position: static; z-index: auto; float: none; display: table; clear: both; margin-left: 300px; margin-top: 60px;">
+        <div style="width: 75%; box-sizing: inherit; float: left; border-right: 1px solid #ffbe0b; border-bottom: 1px solid #ffbe0b; padding: 10px; position: static;z-index: auto;">
+            <h2 th:utext="${message.title}"></h2>
+            <p th:utext="${message.text}">
 
-<!--
-{{#messages}}
-    <div>
-        <b>{{id}}</b>
-        <span>{{text}}</span>
-        <b>{{tag}}</b>
-        <i>{{created_date}}</i>
+
+            </p>
+            <h5 style="text-align:right;" th:utext="${#calendars.format(message.createdDate, 'dd MMMM yyyy, HH:mm')}"></h5>
+            <h4 style="text-align: right;" th:utext="${'Author: ' + message.authorId.firstName +' '+ message.authorId.lastName}"></h4>
+        </div>
+
+
+        <div style="box-sizing: inherit; float: left; width: 17%; position: static; z-index: auto; margin-left: 30px;">
+            <h2 style="text-align: center;">The Last Ten Themes</h2>
+            <ul id="unordered_list">
+                <li th:each="title : ${lastTenTitles}" th:utext="${title.title}"/>
+
+            </ul>
+        </div>
+        <!--after-->
     </div>
-{{/messages}}
--->
+
+
+    <div style="margin-top: 30px; width: 60%; margin-left: 300px; position: static;">
+        <p style="color: #fb5607;"><b>To add a comment, please Log in!</b></p>
+        <hr>
+    </div>
+
+
+    <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;">
+        <p><b>@user 1</b>
+        </p>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book.
+        </p>
+        <a href="add_reply.html" ; style="text-align:right;">Reply</a>
+    </div>
+
+</div>
+<footer>
+    <small>© copyright 2023, Author Igor Cijov</small>
+
+</footer>
 </body>
 </html>

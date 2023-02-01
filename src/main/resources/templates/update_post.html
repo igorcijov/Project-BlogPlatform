@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlogPlatform Project</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+
+
+body{
+    margin: 0;
+    padding: 0;
+    align-content: center;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+}
+
+footer {
+    background-color: #caf0f8;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+a{
+    color:#0077b6;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+/* a:visited{
+    color: #fca311;
+} */
+
+.home_link {
+    background-color: #ffb703;
+}
+
+.home_link:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list {
+    list-style: none;
+    text-align: center;
+    width: 36%;
+    margin: auto;
+    position: relative;
+}
+
+.head_nav_list_item {
+    float: left;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.head_nav_list_item:hover{
+    background-color: #ccd5ae;
+}
+
+.head_nav_list_link {
+    display: block;
+    text-align: center;
+}
+.unordered_list{
+    text-align: left;
+}
+
+.register_form{
+width: 750px;
+min-height: 0;
+box-sizing: inherit;
+border-radius: 8px;
+border: 1px solid #ffbe0b;
+display: block;
+flex-shrink: 0;
+margin: auto;
+background: #fff;
+max-width: 100%;
+position: relative;
+top: 100px;
+z-index: 2;
+}
+
+.register_form2{
+    white-space: normal;
+    padding: 48px;
+    box-sizing: inherit;
+    direction: ltr;
+    font-size: 14px;
+    line-height: 1.4286;
+    position: relative;
+    top:45px;
+    margin-bottom: 80px;
+}
+
+.add_form{
+    width: 920px;
+    min-height: 0;
+    box-sizing: inherit;
+    border-radius: 8px;
+    border: 1px solid #ffbe0b;
+    display: block;
+    flex-shrink: 0;
+    margin: auto;
+    background: #fff;
+    max-width: 100%;
+    position: relative;
+    top: 100px;
+    z-index: 2;
+    }
+
+    .add_form2{
+        white-space: normal;
+        padding: 48px;
+        box-sizing: inherit;
+        direction: ltr;
+        font-size: 14px;
+        line-height: 1.4286;
+        position: relative;
+        top:45px;
+        margin-bottom: 80px;
+    }
+
+    table{
+        margin-top: 50px;
+
+    }
+
+    table, th, td {border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px; margin: auto;
+    }
+  </style>
+
+</head>
+<body>
+<div class="main_content" style="min-height: 55em;">
+  <h1 style="background-color: #caf0f8; border: 1px solid #ffbe0b; text-align: center; padding: 5px;">Blog Platform</h1>
+  <hr>
+
+  <nav>
+    <ul class="head_nav_list">
+      <li class="head_nav_list_item home_link"><a href="/main" class="head_nav_list_link">Home</a></li>
+      <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
+      <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
+      <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
+      <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
+      <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
+      <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
+      <li class="head_nav_list_item"><a href="" class="head_nav_list_link">ManageUsers</a></li>
+
+      <li>  <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+      </form></li>
+    </ul>
+  </nav>
+
+  <div class="add_form">
+    <h2 style="text-align: left; position: absolute; left: 45px; top: 10px;">Update Post</h2>
+    <div class="add_form2">
+      <form th:action="@{/update_post/{id}(id=${article.Id})}" th:object="${article}" method="POST">
+        <div> <span>  <input type="text" th:field="*{title}"/> </span>
+          <select th:field="*{tag}">
+            <option th:value="'Frontend'" th:text="Frontend">Frontend</option> <option th:value="'Backend'" th:text="Backend">Backend</option> <option th:value="'Linux'" th:text="Linux">Linux</option> </select>
+
+          <span><input type="radio" name="isEnabled" th:field="*{isEnabled}" value="true"> Enabled
+    <input type="radio" name="isEnabled"  th:field="*{isEnabled}" value="false"> Disabled</span>
+
+        </div>
+        <div style="margin-top: 20px; height:230px" ><textarea th:field="*{text}" wrap="virtual" name="text" style="resize: none; width: 94%; height: 220px; padding: 12px 20px;"></textarea></div>
+
+
+        <button type = "submit" style="position: relative;top: 50px;">Update</button>
+        <button type="Reset" value="Clear" style="position: relative;top: 50px;">Clear</button>
+      </form>
+
+
+    </div>
+
+  </div>
+
+  <footer>
+    <small>© copyright 2023, Author Igor Cijov</small>
+
+  </footer>
+</div>
+</body>
+</html>
