@@ -37,7 +37,8 @@ public class MainViewController {
     }
 
     @GetMapping("/list_posts")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+    public String main(@RequestParam(required = false, defaultValue = "") String filter,
+                       @RequestParam(required = false, defaultValue = "") String param_error, Model model) {
         Iterable<Article> messages = articleService.getAllDesc();
         if (filter != null && !filter.isEmpty()) {
             messages = articleService.getByTitle(filter);

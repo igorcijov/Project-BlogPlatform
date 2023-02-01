@@ -203,7 +203,10 @@ z-index: 2;
                 <td th:utext="${#calendars.format(article.createdDate, 'dd MMMM yyyy, HH:mm')}">...</td>
                 <td th:utext="${#calendars.format(article.editedDate, 'dd MMMM yyyy, HH:mm')}">...</td>
                 <td th:utext="${article.authorId.firstName +' '+ article.authorId.lastName}">...</td>
-                <td th:if="${article.editorId}" th:utext="${article.editorId.firstName +' '+ article.editorId.lastName}" ></td>
+
+                <!--Ternary Operator for empty field-->
+                <td th:utext="${article.editorId}? ${article.editorId.firstName +' '+ article.editorId.lastName} : ''">...</td>
+                
                 <td th:utext="${article.isEnabled}"></td>
                 <td><a th:href="@{/update_post/{id}(id=${article.Id})}" class="head_nav_list_item ">edit</a></td>
             </tr>
