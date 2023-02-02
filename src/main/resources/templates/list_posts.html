@@ -206,7 +206,7 @@ z-index: 2;
 
                 <!--Ternary Operator for empty field-->
                 <td th:utext="${article.editorId}? ${article.editorId.firstName +' '+ article.editorId.lastName} : ''">...</td>
-                
+
                 <td th:utext="${article.isEnabled}"></td>
                 <td><a th:href="@{/update_post/{id}(id=${article.Id})}" class="head_nav_list_item ">edit</a></td>
             </tr>

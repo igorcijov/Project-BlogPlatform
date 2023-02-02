@@ -9,7 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +20,16 @@ public class MainViewController {
 
     @GetMapping("/")
     public String greeting(Model model) {
-        Article article = articleService.getLastArticle();
-        List<Article> lastTenTitles = articleService.getLastTen();
+        Article article = new Article();
+        List <Article> lastTenTitles = new ArrayList<>();
+        if (articleService.getLastArticle()==null){
+            article = articleService.addEmptyArticle();
+        }else {
+         article = articleService.getLastArticle();}
+        if (articleService.getLastTen()==null){
+            lastTenTitles.add(articleService.addEmptyArticle());
+        }else {lastTenTitles = articleService.getLastTen();}
+
         model.addAttribute("message", article);
         model.addAttribute("lastTenTitles", lastTenTitles);
         return "index";
@@ -29,8 +37,16 @@ public class MainViewController {
 
     @GetMapping("/main")
     public String main(Model model) {
-        Article article = articleService.getLastArticle();
-        List<Article> lastTenTitles = articleService.getLastTen();
+        Article article = new Article();
+        List <Article> lastTenTitles = new ArrayList<>();
+        if (articleService.getLastArticle()==null){
+            article = articleService.addEmptyArticle();
+        }else {
+            article = articleService.getLastArticle();}
+        if (articleService.getLastTen()==null){
+            lastTenTitles.add(articleService.addEmptyArticle());
+        }else {lastTenTitles = articleService.getLastTen();}
+
         model.addAttribute("message", article);
         model.addAttribute("lastTenTitles", lastTenTitles);
         return "main";
