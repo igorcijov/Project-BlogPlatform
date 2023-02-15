@@ -21,6 +21,8 @@ public class MainViewController {
     @GetMapping("/")
     public String greeting(Model model) {
         Article article = new Article();
+        int id = articleService.getLastArticle().getId();
+        List <Article> getComments = articleService.getAllByPostId(id);
         List <Article> lastTenTitles = new ArrayList<>();
         if (articleService.getLastArticle()==null){
             article = articleService.addEmptyArticle();
@@ -32,12 +34,17 @@ public class MainViewController {
 
         model.addAttribute("message", article);
         model.addAttribute("lastTenTitles", lastTenTitles);
+        model.addAttribute("getComment", getComments);
         return "index";
     }
 
-    @GetMapping("/main")
-    public String main(Model model) {
+    @GetMapping("/main")   ///{commentId}
+    public String main(Model model) {    //@PathVariable("commentId") Integer commentId
         Article article = new Article();
+        int id = articleService.getLastArticle().getId();
+
+        List <Article> getComments = articleService.getAllByPostId(id);
+        Article commentToAuthor = articleService.commentToAuthor(4); //TODO
         List <Article> lastTenTitles = new ArrayList<>();
         if (articleService.getLastArticle()==null){
             article = articleService.addEmptyArticle();
@@ -49,6 +56,8 @@ public class MainViewController {
 
         model.addAttribute("message", article);
         model.addAttribute("lastTenTitles", lastTenTitles);
+        model.addAttribute("getComment", getComments);
+        model.addAttribute("commentToAuthor", commentToAuthor);
         return "main";
     }
 
@@ -74,14 +83,61 @@ public class MainViewController {
     @PostMapping("/add")
     public String add(
             @AuthenticationPrincipal User user,
-            @RequestParam String text,
             @RequestParam String title,
             @RequestParam String tag,
+            @RequestParam String text,
             @RequestParam boolean isEnabled,
             Model model) {
         Date date = new Date();
-        Article article = new Article(user, text, title, tag, date, isEnabled);
+        Article article = new Article(user, title, tag, text, date, isEnabled);
         articleService.add(article);
+        return "redirect:/main";
+    }
+
+    @GetMapping("/add_comment/{id}")
+    public String addComment(Model model, @PathVariable final Integer id) {
+        model.addAttribute("article", articleService.getAllDesc());
+        Article article = articleService.getById(id);
+        model.addAttribute("article", article);
+        return "add_comment";
+    }
+
+    @PostMapping("/add_comment/{id}")
+    public String addComment(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag,
+            @RequestParam Integer postId,
+            boolean isEnabled,
+            Model model) {
+        Date date = new Date();
+        Article article = new Article(user, text, tag, date, postId, null, isEnabled);
+        articleService.add(article);
+        return "redirect:/main";
+    }
+
+    @GetMapping("/reply_comment/{id}")
+    public String replyComment(Model model, @PathVariable final Integer id) {
+        model.addAttribute("article", articleService.getAllDesc());
+        Article article = articleService.getById(id);
+        model.addAttribute("article", article);
+        return "reply_comment";
+    }
+
+    @PostMapping("/reply_comment/{id}")
+    public String replyComment(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag,
+            @RequestParam Integer postId,
+            @RequestParam Integer parentId,
+            boolean isEnabled,
+            Model model) {
+        Date date = new Date();
+        Article parentArticle = articleService.getById(parentId); //TODO
+        Article article = new Article(user, text, tag, date, postId, parentId, isEnabled);
+        articleService.add(article);
+        model.addAttribute("parentId", parentArticle);
         return "redirect:/main";
     }
 
@@ -106,7 +162,7 @@ public class MainViewController {
         article.setEnabled(isEnabled);
 
         if (!StringUtil.isEmpty(title) && !StringUtil.isEmpty(text)) {
-            articleService.update(id, article);
+            articleService.updateOld(id, article);
 
             return "redirect:/list_posts";
         }
@@ -114,6 +170,18 @@ public class MainViewController {
         model.addAttribute("errorMessage", "First Name & Last Name is required!");
         return "update_post";
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    @PostMapping(value = "/add_post")
 //    public String add(

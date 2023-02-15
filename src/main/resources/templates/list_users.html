@@ -176,7 +176,7 @@ tr:nth-of-type(odd) {
         <br>
 
         <div style="margin: auto; text-align: center;">
-            <form th:action="@{/list_posts}" method = "get" style=" margin: auto;">
+            <form th:action="@{/list_users}" method = "get" style=" margin: auto;">
                 <input type="text" name ="filter" th:value="${filter}">
 
                 <button type="submit">Find Title</button>
@@ -188,29 +188,27 @@ tr:nth-of-type(odd) {
         <table>
             <tr>
                 <th><b>ID</b></th>
-                <th><b>Title</b></th>
-                <th><b>Tag</b></th>
-                <th><b>Created Date</b></th>
-                <th><b>Edited Date</b></th>
-                <th><b>Author</b></th>
-                <th><b>Editor</b></th>
-                <th><b>Is Enabled</b></th>
+                <th><b>Firstname</b></th>
+                <th><b>Lastname</b></th>
+                <th><b>Email</b></th>
+                <th><b>Username</b></th>
+                <th><b>Password</b></th>
+
+                <th><b>Active</b></th>
                 <th><b>Edit</b></th>
             </tr>
 
-            <tr th:each ="article : ${messages}">
-                <td th:utext="${article.id}">...</td>
-                <td th:utext="${article.title}">...</td>
-                <td th:utext="${article.tag}">...</td>
-                <td th:utext="${#calendars.format(article.createdDate, 'dd MMMM yyyy, HH:mm')}">...</td>
-                <td th:utext="${#calendars.format(article.editedDate, 'dd MMMM yyyy, HH:mm')}">...</td>
-                <td th:utext="${article.authorId.firstName +' '+ article.authorId.lastName}">...</td>
+            <tr th:each ="user : ${users}">
+                <td th:utext="${user.id}">...</td>
+                <td th:utext="${user.firstName}">...</td>
+                <td th:utext="${user.lastName}">...</td>
+                <td th:utext="${user.email}">...</td>
+                <td th:utext="${user.username}">...</td>
+                <td th:utext="${user.password}">...</td>
 
-                <!--Ternary Operator for empty field-->
-                <td th:utext="${article.editorId}? ${article.editorId.firstName +' '+ article.editorId.lastName} : ''">...</td>
+                <td th:utext="${user.active}">...</td>
 
-                <td th:utext="${article.isEnabled}"></td>
-                <td><a th:href="@{/update_post/{id}(id=${article.Id})}" class="head_nav_list_item ">edit</a></td>
+                <td><a th:href="@{/update_user/{id}(id=${user.Id})}" class="head_nav_list_item ">edit</a></td>
             </tr>
         </table>
 

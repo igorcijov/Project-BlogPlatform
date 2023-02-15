@@ -57,8 +57,7 @@
 
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
-            <!-- Temporary explicit version to fix Thymeleaf bug -->
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.1.1.RELEASE</version>
         </dependency>
 
@@ -146,10 +145,10 @@
                         </goals>
                         <configuration>
                             <generatorName>spring</generatorName>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi/rest-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/rest-article-api.yaml</inputSpec>
                             <apiPackage>blog.controller</apiPackage>
                             <modelPackage>blog.controller.vo</modelPackage>
-                            <supportingFilesToGenerate>RestApi.java</supportingFilesToGenerate>
+                            <supportingFilesToGenerate>ArticleRestApi.java</supportingFilesToGenerate>
                             <generateSupportingFiles>true</generateSupportingFiles>
                             <generateApiTests>false</generateApiTests>
                             <configOptions>

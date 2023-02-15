@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogPlatform Project</title>
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
 
 
 body{
@@ -137,13 +136,9 @@ z-index: 2;
 
     }
 
-    table, th, td {border: 1px solid #8d99ae;
+    table, th, td {border: 1px solid black;
         border-collapse: collapse;
         padding: 5px; margin: auto;
-    }
-
-tr:nth-of-type(odd) {
-      background-color:#ccc;
     }
 
     </style>
@@ -160,7 +155,7 @@ tr:nth-of-type(odd) {
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
-            <li class="head_nav_list_item"><a href="/swagger-ui/index.html" class="head_nav_list_link">RestAPI</a></li>
+            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
             <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
             <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
             <li class="head_nav_list_item"><a href="/list_users" class="head_nav_list_link">ManageUsers</a></li>
@@ -171,48 +166,25 @@ tr:nth-of-type(odd) {
         </ul>
     </nav>
 
+    <div class="add_form">
+        <h2 style="text-align: left; position: absolute; left: 45px; top: 10px;" th:utext="${'Reply to Comment: ' + article.authorId.firstName +' '+ article.authorId.lastName}"></h2>
+        <div class="add_form2">
 
-    <div style="border: 1px solid #ffbe0b; width: 70%; margin: auto; top: 60px; position: relative; padding: 10px 0 30px 0;">
-        <br>
+            <form th:action="@{/reply_comment/{id}(id=${article.Id})}" th:object="${article}" method="POST">
 
-        <div style="margin: auto; text-align: center;">
-            <form th:action="@{/list_posts}" method = "get" style=" margin: auto;">
-                <input type="text" name ="filter" th:value="${filter}">
+                <div style="margin-top: 20px; height:230px" ><textarea placeholder="Text area" wrap="virtual" name="text" style="resize: none; width: 94%; height: 220px; padding: 12px 20px;"></textarea>
+                    <input type="hidden" name="postId" th:value="${article.postId}">
+                    <input type="hidden" name="parentId" th:value="${article.id}">
+                    <input type="hidden" name="tag" th:value="${article.tag}">
+                </div>
 
-                <button type="submit">Find Title</button>
+
+                <button type = "submit" style="position: relative;top: 50px;">Add</button>
+                <button type="Reset" value="Clear" style="position: relative;top: 50px;">Clear</button>
             </form>
+
+
         </div>
-
-        <br><br>
-
-        <table>
-            <tr>
-                <th><b>ID</b></th>
-                <th><b>Title</b></th>
-                <th><b>Tag</b></th>
-                <th><b>Created Date</b></th>
-                <th><b>Edited Date</b></th>
-                <th><b>Author</b></th>
-                <th><b>Editor</b></th>
-                <th><b>Is Enabled</b></th>
-                <th><b>Edit</b></th>
-            </tr>
-
-            <tr th:each ="article : ${messages}">
-                <td th:utext="${article.id}">...</td>
-                <td th:utext="${article.title}">...</td>
-                <td th:utext="${article.tag}">...</td>
-                <td th:utext="${#calendars.format(article.createdDate, 'dd MMMM yyyy, HH:mm')}">...</td>
-                <td th:utext="${#calendars.format(article.editedDate, 'dd MMMM yyyy, HH:mm')}">...</td>
-                <td th:utext="${article.authorId.firstName +' '+ article.authorId.lastName}">...</td>
-
-                <!--Ternary Operator for empty field-->
-                <td th:utext="${article.editorId}? ${article.editorId.firstName +' '+ article.editorId.lastName} : ''">...</td>
-
-                <td th:utext="${article.isEnabled}"></td>
-                <td><a th:href="@{/update_post/{id}(id=${article.Id})}" class="head_nav_list_item ">edit</a></td>
-            </tr>
-        </table>
 
     </div>
 

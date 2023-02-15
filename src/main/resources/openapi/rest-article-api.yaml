@@ -5,55 +5,14 @@ info:
   title: Simple Rest API
 
 tags:
-  - name: SimpleRest
-    description: Simple rest CRUD API
+  - name: ArticleRest
+    description: Article rest CRUD API
 
 paths:
-  /add:
-    post:
-      tags:
-        - SimpleRest
-      summary: Add one record
-      description: Add one record
-      operationId: add
-      requestBody:
-        description: Data to add
-        required: true
-        content:
-          'application/json':
-            schema:
-              type: PersonVO
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: PersonVO
-        '404':
-          description: Request failed - No items
-
-  /getAll:
-    get:
-      tags:
-        - SimpleRest
-      summary: Get all records
-      description: Get all records
-      operationId: getAll
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: PersonVO
-
   /get/{id}:
     get:
       tags:
-        - SimpleRest
+        - ArticleRest
       summary: Get one record by id
       description: Get one record by id
       operationId: get
@@ -65,14 +24,95 @@ paths:
           content:
             application/json:
               schema:
-                type: PersonVO
+                type: ArticleVO
+        '404':
+          description: Request failed - No items
+
+  /getLast:
+    get:
+      tags:
+        - ArticleRest
+      summary: Get last record
+      description: Get last record
+      operationId: getLastArticle
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: ArticleVO
+        '404':
+          description: Request failed - No items
+
+  /getAll:
+    get:
+      tags:
+        - ArticleRest
+      summary: Get all records
+      description: Get all records
+      operationId: getAll
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: ArticleVO
+        '404':
+          description: Request failed - No items
+
+  /getAllByParent/{id}:
+    get:
+      tags:
+        - ArticleRest
+      summary: Get all records by parent id
+      description: Get all records by parent id
+      operationId: getByParent
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: ArticleVO
+        '404':
+          description: Request failed - No items
+
+  /add:
+    post:
+      tags:
+        - ArticleRest
+      summary: Add one message
+      description: Add one message
+      operationId: add
+      requestBody:
+        description: Data for message
+        required: true
+        content:
+          application/json:
+            schema:
+              type: ArticleVO
+      responses:
+        '201':
+          description: Successful operation'
+          content:
+            application/json:
+              schema:
+                type: ArticleVO
         '404':
           description: Request failed - No items
 
   /update/{id}:
     put:
       tags:
-        - SimpleRest
+        - ArticleRest
       summary: Update one record
       description: Update one record
       operationId: update
@@ -84,21 +124,21 @@ paths:
         content:
           'application/json':
             schema:
-              type: PersonVO
+              type: ArticleVO
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                type: PersonVO
+                type: ArticleVO
         '404':
           description: Request failed - No items
 
   /delete/{id}:
     delete:
       tags:
-        - SimpleRest
+        - ArticleRest
       summary: Delete one record by id
       description: Delete one record by id
       operationId: delete

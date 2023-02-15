@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogPlatform Project</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
 
 
 body{
@@ -71,7 +71,8 @@ a:hover{
     text-align: center;
 }
 
-</style>
+
+    </style>
 
 </head>
 <body>
@@ -100,13 +101,15 @@ a:hover{
     <!--before-->
     <div style="box-sizing: inherit; position: static; z-index: auto; float: none; display: table; clear: both; margin-left: 300px; margin-top: 60px;">
         <div style="width: 75%; box-sizing: inherit; float: left; border-right: 1px solid #ffbe0b; border-bottom: 1px solid #ffbe0b; padding: 10px; position: static;z-index: auto;">
-          <h2 th:utext="${message.title}" th:unless="${message.title == 'Empty'}"></h2>
-          <p  th:utext="${message.text}">
+            <h2 th:utext="${message.title}" th:unless="${message.title == 'Empty'}"></h2>
+            <p th:utext="${message.text}">
 
 
             </p>
-            <h5 style="text-align:right;" th:utext="${#calendars.format(message.createdDate, 'dd MMMM yyyy, HH:mm')}"></h5>
-            <h4 style="text-align: right;" th:utext="${'Author: ' + message.authorId.firstName +' '+ message.authorId.lastName}"></h4>
+            <h5 style="text-align:right;"
+                th:utext="${#calendars.format(message.createdDate, 'dd MMMM yyyy, HH:mm')}"></h5>
+            <h4 style="text-align: right;"
+                th:utext="${'Author: ' + message.authorId.firstName +' '+ message.authorId.lastName}"></h4>
         </div>
 
 
@@ -127,15 +130,17 @@ a:hover{
     </div>
 
 
-    <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;">
-        <p><b>@user 1</b>
-        </p>
-        <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
-        </p>
-        <a href="add_reply.html" ; style="text-align:right;">Reply</a>
+    <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;"
+         th:each="comment : ${getComment}">
+        <h5>
+        <span th:utext="${#calendars.format(comment.createdDate, 'dd MMMM yyyy, HH:mm')}"></span>
+            <span th:utext="${'to ' + message.authorId.firstName +' '+ message.authorId.lastName}"></span></h5>
+
+
+          <p th:utext="${comment.text}"></p>
+        <h5 style="text-align: right;"
+           th:utext="${'Author: ' + comment.authorId.firstName +' '+ comment.authorId.lastName}"></h5>
+
     </div>
 
 </div>

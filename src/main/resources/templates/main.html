@@ -87,10 +87,10 @@ a:hover{
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
-            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
+            <li class="head_nav_list_item"><a href="/swagger-ui/index.html" class="head_nav_list_link">RestAPI</a></li>
             <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
             <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
-            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">ManageUsers</a></li>
+            <li class="head_nav_list_item"><a href="/list_users" class="head_nav_list_link">ManageUsers</a></li>
 
             <li>  <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout"/>
@@ -98,13 +98,6 @@ a:hover{
         </ul>
     </nav>
 
-
-    <!--
-    <p style="text-align: right;"><a href="/main"><b>Login</b></a>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-    -->
-
-
-    <!--before-->
     <div style="box-sizing: inherit; position: static; z-index: auto; float: none; display: table; clear: both; margin-left: 300px; margin-top: 60px;">
         <div style="width: 75%; box-sizing: inherit; float: left; border-right: 1px solid #ffbe0b; border-bottom: 1px solid #ffbe0b; padding: 10px; position: static;z-index: auto;">
             <h2 th:utext="${message.title}"></h2>
@@ -129,20 +122,31 @@ a:hover{
 
 
     <div style="margin-top: 30px; width: 60%; margin-left: 300px; position: static;">
-        <p style="color: #fb5607;"><b>To add a comment, please Log in!</b></p>
-        <hr>
+        <nav><a th:href="@{/add_comment/{id}(id=${message.Id})}" class="head_nav_list_item home_link ">Add Comment</a>
+        </nav>
     </div>
+<br>
+
+    <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;"
+         th:each="comment : ${getComment}">
+
+        <!--    <a th:href="@{/main/{commentId} (commentId=${comment.id}})}">  In lucru-->
 
 
-    <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;">
-        <p><b>@user 1</b>
-        </p>
-        <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
-        </p>
-        <a href="add_reply.html" ; style="text-align:right;">Reply</a>
+        <h5>
+            <span th:utext="${#calendars.format(comment.createdDate, 'dd MMMM yyyy, HH:mm')}"></span>
+
+            <!-- aici lucrez acuma -->
+            <span th:utext="${commentToAuthor.authorId.firstName +' '+ commentToAuthor.authorId.lastName}"></span></h5>
+
+        <!--  th:utext="${'to ' + message.authorId.firstName +' '+ message.authorId.lastName}"  functionabil-->
+
+        <p th:utext="${comment.text}"></p>
+        <h5 style="text-align: right;"
+            th:utext="${'Author: ' + comment.authorId.firstName +' '+ comment.authorId.lastName}"></h5>
+
+        <p><a th:href="@{/reply_comment/{id}(id=${comment.Id})}" style="text-align:right;">Reply</a></p>
+
     </div>
 
 </div>

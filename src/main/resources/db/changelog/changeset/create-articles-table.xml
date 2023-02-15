@@ -39,6 +39,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="post_id" type="int" defaultValue="null">
+                <constraints nullable="true" />
+            </column>
+
             <column name="parent_id" type="int" defaultValue="null">
                 <constraints nullable="true" />
             </column>

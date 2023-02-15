@@ -2,25 +2,30 @@ package blog.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import blog.domain.Article;
 
 import java.util.List;
 
 
-public interface ArticleRepository extends CrudRepository<Article, Integer> {
+public interface ArticleRepository extends CrudRepository<Article, java.lang.Integer> {
 
-    Article findTopByAndIsEnabledIsTrueOrderByIdDesc();
+    Article findTopByPostIdIsNullAndIsEnabledIsTrueOrderByIdDesc();
 
     List<Article> findByTitleContainingIgnoreCase(String tag);
 
-    List<Article> findAllByOrderByIdDesc();
+    List<Article> findAllByPostIdIsNullOrderByIdDesc();
 
-    List<Article> findAllByParentIdEquals(int id);
+    List<Article> findAllByPostIdEquals(int id);
 
-    List<Article> findFirst10ByAndIsEnabledIsTrueOrderByIdDesc();
+    List<Article> findFirst10ByPostIdIsNullAndIsEnabledIsTrueOrderByIdDesc();
+   // List<Article> findAllAndIsEnabledIsTrue();
 
-    Page<Article> findAllByParentIdIsNull (Pageable pageable); //TODO de gandit
+    List<Article>findAll();
+
+//    @Query("SELECT a FROM Message a WHERE a.parentId = null AND a.isEnabled = true" )
+//    Page<Article> findAll(Pageable pageable);
 
 }
 
