@@ -1,0 +1,83 @@
+openapi: 3.0.0
+
+info:
+  version: 1.0.0
+  title: Simple Rest API
+
+tags:
+  - name: CommentRest
+    description: Comment rest CRUD API
+
+paths:
+  /add:
+    post:
+      tags:
+        - CommentRest
+      summary: Add one message
+      description: Add one message
+      operationId: add
+      requestBody:
+        description: Data for message
+        required: true
+        content:
+          application/json:
+            schema:
+              type: ArticleVO
+      responses:
+        '201':
+          description: Successful operation'
+          content:
+            application/json:
+              schema:
+                type: ArticleVO
+        '404':
+          description: Request failed - No items
+
+  /reply:
+    post:
+      tags:
+        - CommentRest
+      summary: Reply to comment
+      description: Reply to comment
+      operationId: reply
+      requestBody:
+        description: Data for message
+        required: true
+        content:
+          application/json:
+            schema:
+              type: ArticleVO
+      responses:
+        '201':
+          description: Successful operation'
+          content:
+            application/json:
+              schema:
+                type: ArticleVO
+        '404':
+          description: Request failed - No items
+
+  /delete/{id}:
+    delete:
+      tags:
+        - CommentRest
+      summary: Delete comment by id
+      description: Delete comment by id
+      operationId: delete
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successful deleted
+        '404':
+          description: Request failed - No items
+
+components:
+  parameters:
+    id:
+      in: path
+      name: id
+      required: true
+      description: record id
+      schema:
+        type: integer

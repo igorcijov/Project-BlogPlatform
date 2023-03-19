@@ -135,20 +135,7 @@ paths:
         '404':
           description: Request failed - No items
 
-  /delete/{id}:
-    delete:
-      tags:
-        - ArticleRest
-      summary: Delete one record by id
-      description: Delete one record by id
-      operationId: delete
-      parameters:
-        - $ref: '#/components/parameters/id'
-      responses:
-        200:
-          description: Successful deleted
-        '404':
-          description: Request failed - No items
+
 
 components:
   parameters:

@@ -1,15 +1,17 @@
 package blog.repository;
 
+import blog.domain.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import blog.domain.Article;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
 
-public interface ArticleRepository extends CrudRepository<Article, java.lang.Integer> {
+public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> { //PagingAndSortingRepository extends CrudRepository
 
     Article findTopByPostIdIsNullAndIsEnabledIsTrueOrderByIdDesc();
 
@@ -17,15 +19,31 @@ public interface ArticleRepository extends CrudRepository<Article, java.lang.Int
 
     List<Article> findAllByPostIdIsNullOrderByIdDesc();
 
-    List<Article> findAllByPostIdEquals(int id);
+
+    List<Article> findAllByParentIdNotNullAndPostIdEqualsOrderByIdDesc(int id);
+
+    List<Article> findAllByPostIdEqualsOrderByIdAsc(int id);
 
     List<Article> findFirst10ByPostIdIsNullAndIsEnabledIsTrueOrderByIdDesc();
-   // List<Article> findAllAndIsEnabledIsTrue();
 
     List<Article>findAll();
 
-//    @Query("SELECT a FROM Message a WHERE a.parentId = null AND a.isEnabled = true" )
-//    Page<Article> findAll(Pageable pageable);
+    Iterable <Article> findAll(Sort sort);
+
+    @Query (value = "SELECT * FROM articles WHERE post_id IS null AND is_enabled=true ORDER BY message_id DESC", nativeQuery = true)
+    Page<Article> findAllTopics (Pageable pageable);
+    @Query (value="SELECT * FROM articles WHERE tag='Frontend' AND post_id IS null AND is_enabled=true ORDER BY message_id DESC", nativeQuery = true)
+    Page<Article> findAllFrontend (Pageable pageable);
+
+    @Query (value="SELECT * FROM articles WHERE tag='Backend' AND post_id IS null AND is_enabled=true ORDER BY message_id DESC", nativeQuery = true)
+    Page<Article> findAllBackend (Pageable pageable);
+
+    @Query (value="SELECT * FROM articles WHERE tag='Linux' AND post_id IS null AND is_enabled=true ORDER BY message_id DESC", nativeQuery = true)
+    Page<Article> findAllLinux (Pageable pageable);
+
+
+
+
 
 }
 

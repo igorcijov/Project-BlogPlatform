@@ -5,6 +5,7 @@ import blog.domain.User;
 import blog.service.ArticleService;
 import liquibase.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,46 +19,36 @@ public class MainViewController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/")
-    public String greeting(Model model) {
-        Article article = new Article();
-        int id = articleService.getLastArticle().getId();
-        List <Article> getComments = articleService.getAllByPostId(id);
-        List <Article> lastTenTitles = new ArrayList<>();
-        if (articleService.getLastArticle()==null){
-            article = articleService.addEmptyArticle();
-        }else {
-         article = articleService.getLastArticle();}
-        if (articleService.getLastTen()==null){
-            lastTenTitles.add(articleService.addEmptyArticle());
-        }else {lastTenTitles = articleService.getLastTen();}
-
-        model.addAttribute("message", article);
-        model.addAttribute("lastTenTitles", lastTenTitles);
-        model.addAttribute("getComment", getComments);
-        return "index";
+    @RequestMapping("/main")
+    public String getAllTopics (Model model){
+        return listByPage(model,1);
     }
 
-    @GetMapping("/main")   ///{commentId}
-    public String main(Model model) {    //@PathVariable("commentId") Integer commentId
-        Article article = new Article();
-        int id = articleService.getLastArticle().getId();
+    @GetMapping("/main/{pageNumber}")
+    public String listByPage(Model model,
+                             @PathVariable ("pageNumber") int currentPage) {
 
-        List <Article> getComments = articleService.getAllByPostId(id);
-        Article commentToAuthor = articleService.commentToAuthor(4); //TODO
+        Page<Article> pageArticles = articleService.getAllTopics(currentPage);
+        long totalItems = pageArticles.getTotalElements();
+        int totalPages = pageArticles.getTotalPages();
+
+        List<Article> articleList = new ArrayList<>();
+        if(pageArticles.getContent()==null){
+            articleList.add(articleService.addEmptyArticle());
+        }else{articleList=pageArticles.getContent();}
+
         List <Article> lastTenTitles = new ArrayList<>();
-        if (articleService.getLastArticle()==null){
-            article = articleService.addEmptyArticle();
-        }else {
-            article = articleService.getLastArticle();}
         if (articleService.getLastTen()==null){
             lastTenTitles.add(articleService.addEmptyArticle());
         }else {lastTenTitles = articleService.getLastTen();}
 
-        model.addAttribute("message", article);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("message", articleList);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("lastTenTitles", lastTenTitles);
-        model.addAttribute("getComment", getComments);
-        model.addAttribute("commentToAuthor", commentToAuthor);
+        model.addAttribute("service", articleService);
+
         return "main";
     }
 
@@ -170,31 +161,4 @@ public class MainViewController {
         model.addAttribute("errorMessage", "First Name & Last Name is required!");
         return "update_post";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    @PostMapping(value = "/add_post")
-//    public String add(
-//            @AuthenticationPrincipal User user,
-//            @RequestParam String text,
-//            @RequestParam String title,
-//            @RequestParam String tag,
-//            Model model) {
-//        Date date = new Date();
-//        Article article = new Article(user, text, title, tag, date);
-//        articleService.add(article);
-//        Iterable<Article> messages = articleService.getAll();
-//        model.addAttribute("messages", messages);
-//        return "main";
-//    }
 }

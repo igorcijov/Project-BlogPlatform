@@ -140,6 +140,7 @@
                 <version>5.0.1</version>
                 <executions>
                     <execution>
+                        <id>article</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -149,6 +150,26 @@
                             <apiPackage>blog.controller</apiPackage>
                             <modelPackage>blog.controller.vo</modelPackage>
                             <supportingFilesToGenerate>ArticleRestApi.java</supportingFilesToGenerate>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <generateApiTests>false</generateApiTests>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
+                                <java8>false</java8>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>comment</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <generatorName>spring</generatorName>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/rest-comment-api.yaml</inputSpec>
+                            <apiPackage>blog.controller</apiPackage>
+                            <modelPackage>blog.controller.vo</modelPackage>
+                            <supportingFilesToGenerate>CommentRestApi.java</supportingFilesToGenerate>
                             <generateSupportingFiles>true</generateSupportingFiles>
                             <generateApiTests>false</generateApiTests>
                             <configOptions>

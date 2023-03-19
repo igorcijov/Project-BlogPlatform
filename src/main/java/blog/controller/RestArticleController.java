@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/article/")
-public class RestArticleController implements ArticleRestApi{
+@RequestMapping("/api/article")
+public class RestArticleController implements ArticleRestApi {
 
     @Autowired
     ArticleService articleService;
@@ -41,14 +41,9 @@ public class RestArticleController implements ArticleRestApi{
     }
 
     @Override
-    public ResponseEntity<Void> delete(Integer id) {  //TODO
-        return null;
-    }
-
-    @Override
     public ResponseEntity<ArticleVO> get(Integer id) {
         Article article = articleService.getById(id);
-        if (article != null){
+        if (article != null) {
             return ResponseEntity.ok(ArticleVO.valueOf(article));
         }
         return ResponseEntity.notFound().build();
@@ -70,7 +65,7 @@ public class RestArticleController implements ArticleRestApi{
     @Override
     public ResponseEntity<ArticleVO> getLastArticle() {
         Article article = articleService.getLastArticle();
-        if (article != null){
+        if (article != null) {
             return ResponseEntity.ok(ArticleVO.valueOf(article));
         }
         return ResponseEntity.notFound().build();

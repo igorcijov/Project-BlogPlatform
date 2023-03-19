@@ -83,9 +83,9 @@ a:hover{
     <nav>
         <ul class="head_nav_list">
             <li class="head_nav_list_item home_link"><a href="/" class="head_nav_list_link">Home</a></li>
-            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Frontend</a></li>
-            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Backend</a></li>
-            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">Linux</a></li>
+            <li class="head_nav_list_item"><a href="/frontend" class="head_nav_list_link">Frontend</a></li>
+            <li class="head_nav_list_item"><a href="/backend" class="head_nav_list_link">Backend</a></li>
+            <li class="head_nav_list_item"><a href="/linux" class="head_nav_list_link">Linux</a></li>
             <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
             <li class="head_nav_list_item"><a href="/main" class="head_nav_list_link">Log in</a></li>
         </ul>
@@ -109,7 +109,7 @@ a:hover{
 
         <br><br><br><br>
         <div th:if="${param.error}" style="text-align: center;">
-            Invalid username and password.
+            Invalid username or password.
         </div>
         <div th:if="${param.logout}" style="text-align: center;">
             You have been logged out.

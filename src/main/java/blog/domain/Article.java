@@ -34,16 +34,13 @@ public class Article implements Comparable<Article> {
     @Column(name = "edited_date")
     private Date editedDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private User authorId;
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "editor_id")
     private User editorId;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "parent_id")
-//    private Article parent;
 
     @Column(name = "parent_id")
     private Integer parentId;
@@ -62,16 +59,6 @@ public class Article implements Comparable<Article> {
         this.createdDate = createdDate;
         this.isEnabled = isEnabled;
     }
-
-    //Constructor for Updates
-//    public Article(User editorUser, String title, String tag, String text, Date editedDate, boolean isEnabled) {
-//        this.editorId = editorUser;
-//        this.title = title;
-//        this.tag = tag;
-//        this.text = text;
-//        this.editedDate = editedDate;
-//        this.isEnabled = isEnabled;
-//    }
 
     //Constructor for Comments
     public Article(User user, String text, String tag, Date createdDate, Integer postId, Integer parentId, boolean isEnabled) {
@@ -98,12 +85,6 @@ public class Article implements Comparable<Article> {
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
     }
-
-//    public void setParent(Article parent) {
-//        this.parent = parent;
-//        this.parentId = (parent != null) ? parent.getParentId() : null;
-//    }
-
 
     public Integer getParentId() {
         return parentId;

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogPlatform Project</title>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
 
 
 body{
@@ -51,7 +52,7 @@ a:hover{
 .head_nav_list {
     list-style: none;
     text-align: center;
-    width: 24%;
+    width: 36%;
     margin: auto;
     position: relative;
 }
@@ -73,7 +74,6 @@ a:hover{
 
 
 
-
     </style>
 
 </head>
@@ -85,47 +85,41 @@ a:hover{
 
     <nav>
         <ul class="head_nav_list">
-            <li class="head_nav_list_item home_link"><a href="/" class="head_nav_list_link">Home</a></li>
+            <li class="head_nav_list_item home_link"><a href="/main" class="head_nav_list_link">Home</a></li>
             <li class="head_nav_list_item"><a href="/frontend" class="head_nav_list_link">Frontend</a></li>
             <li class="head_nav_list_item"><a href="/backend" class="head_nav_list_link">Backend</a></li>
             <li class="head_nav_list_item"><a href="/linux" class="head_nav_list_link">Linux</a></li>
-            <li class="head_nav_list_item"><a href="" class="head_nav_list_link">About</a></li>
-            <li class="head_nav_list_item"><a href="/main" class="head_nav_list_link">Log in</a></li>
+            <li class="head_nav_list_item"><a href="/swagger-ui/index.html" class="head_nav_list_link">RestAPI</a></li>
+            <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
+            <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
+            <li class="head_nav_list_item"><a href="/list_users" class="head_nav_list_link">ManageUsers</a></li>
+
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout"/>
+                </form>
+            </li>
         </ul>
     </nav>
 
-
-    <!--
-    <p style="text-align: right;"><a href="/main"><b>Login</b></a>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-    -->
-
-
-    <!--before-->
     <div th:each="message : ${message}">
-        <div style="box-sizing: inherit; position: static; z-index: auto; float: none; display: table; clear: both; margin-left: 300px; margin-top: 60px;">
-            <div style="width: 75%; box-sizing: inherit; float: left; border-right: 1px solid #ffbe0b; border-bottom: 1px solid #ffbe0b; padding: 10px; position: static;z-index: auto;">
-                <h2 th:utext="${message.title}" th:unless="${message.title == 'Empty'}"></h2>
-                <p th:utext="${message.text}"></p>
-                <h5 style="text-align:right;"
-                    th:utext="${#calendars.format(message.createdDate, 'dd MMMM yyyy, HH:mm')}"></h5>
-                <h4 style="text-align: right;"
-                    th:utext="${'Author: ' + message.authorId.firstName +' '+ message.authorId.lastName}"></h4>
-            </div>
 
-
-            <div style="box-sizing: inherit; float: left; width: 17%; position: static; z-index: auto; margin-left: 30px;">
-                <h2 style="text-align: center;">The Last Ten Themes</h2>
-                <ul id="unordered_list">
-                    <li th:each="title : ${lastTenTitles}" th:utext="${title.title}"/>
-                </ul>
-            </div> <!--after-->
+        <div style="border-right: 1px solid #ffbe0b; border-bottom: 1px solid #ffbe0b; background-color: #ffffff; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;">
+            <h2 th:utext="${message.title}"></h2>
+            <p th:utext="${message.text}"></p>
+            <h5 style="text-align:right;"
+                th:utext="${#calendars.format(message.createdDate, 'dd MMMM yyyy, HH:mm')}"></h5>
+            <h4 style="text-align: right;" th:each="message : ${message}"
+                th:utext="${'Author: ' + message.authorId.firstName +' '+ message.authorId.lastName}"></h4>
         </div>
 
-
+        <!--Add Comment Button-->
         <div style="margin-top: 30px; width: 60%; margin-left: 300px; position: static;">
-            <p style="color: #fb5607;"><b>To add a comment, please Log in!</b></p>
-            <hr>
+            <nav><a th:href="@{/add_comment/{id}(id=${message.Id})}" class="head_nav_list_item home_link ">Add Comment</a>
+            </nav>
         </div>
+        <br>
+
 
         <!--Comments-->
         <div style="border: 1px solid #778da9; background-color: #e5e5e5; margin-top: 30px; width: 60%; margin-left: 300px; padding: 5px; position: static;"
@@ -138,6 +132,8 @@ a:hover{
             <p th:utext="${comment.text}"></p>
             <h5 style="text-align: right;"
                 th:utext="${'Author: ' + comment.authorId.firstName +' '+ comment.authorId.lastName}"></h5>
+
+            <p><a th:href="@{/reply_comment/{id}(id=${comment.Id})}" style="text-align:right;">Reply</a></p>
         </div>
     </div>
 
@@ -148,32 +144,33 @@ a:hover{
 
         <div>
             <!--Firstpage-->
-            <a th:if="${currentPage > 1}" th:href="@{/index/1}">First</a>
+            <a th:if="${currentPage > 1}" th:href="@{/backend/1}">First</a>
             <span th:unless="${currentPage > 1}">First</span>
             &nbsp;
 
             <!--Previouspage-->
-            <a th:if="${currentPage >1}" th:href="@{'/index/' + ${currentPage - 1}}">&#60;&#60;</a>
+            <a th:if="${currentPage >1}" th:href="@{'/backend/' + ${currentPage - 1}}">&#60;&#60;</a>
             <span th:unless="${currentPage > 1}">&#60;&#60;</span>
             &nbsp;
 
 
             <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-            <a th:if="${i != currentPage}" th:href="@{'/index/' +${i}}">[[${i}]]</a>
+            <a th:if="${i != currentPage}" th:href="@{'/backend/' +${i}}">[[${i}]]</a>
             <span th:unless="${i != currentPage}">[[${i}]]</span>
             &nbsp;
             </span>
 
             <!--Next page-->
-            <a th:if="${currentPage < totalPages}" th:href="@{'/index/' + ${currentPage + 1}}">&#62;&#62;</a>
+            <a th:if="${currentPage < totalPages}" th:href="@{'/backend/' + ${currentPage + 1}}">&#62;&#62;</a>
             <span th:unless="${currentPage < totalPages}">&#62;&#62;</span>
             &nbsp;
 
             <!--Last Page-->
-            <a th:if="${currentPage < totalPages}" th:href="@{'/index/' + ${totalPages}}">Last</a>
+            <a th:if="${currentPage < totalPages}" th:href="@{'/backend/' + ${totalPages}}">Last</a>
             <span th:unless="${currentPage < totalPages}">Last</span>
         </div>
     </div>
+
 
 </div>
 <footer>
