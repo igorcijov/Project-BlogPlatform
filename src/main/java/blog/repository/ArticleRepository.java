@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.lang.NonNull;
 
 import java.util.List;
 
@@ -40,10 +39,6 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, I
 
     @Query (value="SELECT * FROM articles WHERE tag='Linux' AND post_id IS null AND is_enabled=true ORDER BY message_id DESC", nativeQuery = true)
     Page<Article> findAllLinux (Pageable pageable);
-
-
-
-
 
 }
 

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -22,6 +23,11 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
+    }
+
+    public User getById (int id){
+        Optional<User>result = userRepository.findById(id);
+        return result.isPresent()? result.get() : null;
     }
 
     public User getByUserName(String username) {
@@ -41,7 +47,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public void updateOld(Long idx, User user) {
+    public void updateOld(int idx, User user) {
         User old = userRepository.findById(idx).get();
         old.setFirstName(user.getFirstName());
         old.setLastName(user.getLastName());

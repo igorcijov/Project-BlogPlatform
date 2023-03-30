@@ -52,7 +52,7 @@ a:hover{
 .head_nav_list {
     list-style: none;
     text-align: center;
-    width: 36%;
+    width: 40%;
     margin: auto;
     position: relative;
 }
@@ -90,14 +90,11 @@ a:hover{
             <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
             <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
             <li class="head_nav_list_item"><a href="/list_users" class="head_nav_list_link">ManageUsers</a></li>
-
-            <li>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Logout"/>
-                </form>
-            </li>
         </ul>
     </nav>
+    <form th:action="@{/logout}" method="post" style="right">
+        <input type="submit" value="Logout"/>
+    </form>
 
     <div th:each="message : ${message}">
         <div style="box-sizing: inherit; position: static; z-index: auto; float: none; display: table; clear: both; margin-left: 300px; margin-top: 60px;">

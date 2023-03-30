@@ -52,7 +52,7 @@ a:hover{
 .head_nav_list {
     list-style: none;
     text-align: center;
-    width: 36%;
+    width: 40%;
     margin: auto;
     position: relative;
 }
@@ -159,12 +159,11 @@ z-index: 2;
             <li class="head_nav_list_item"><a href="/add" class="head_nav_list_link">AddPost</a></li>
             <li class="head_nav_list_item"><a href="/list_posts" class="head_nav_list_link">ManagePosts</a></li>
             <li class="head_nav_list_item"><a href="/list_users" class="head_nav_list_link">ManageUsers</a></li>
-
-            <li>  <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout"/>
-            </form></li>
         </ul>
     </nav>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
 
     <div class="add_form">
         <h2 style="text-align: left; position: absolute; left: 45px; top: 10px;" th:utext="${'Reply to Comment: ' + article.authorId.firstName +' '+ article.authorId.lastName}"></h2>

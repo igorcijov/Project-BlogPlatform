@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogPlatform Project</title>
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Roboto:wght@500&display=swap');
 
 
 body{
@@ -23,7 +22,7 @@ h1 {
 footer {
     background-color: #caf0f8;
     bottom: 0;
-    position: fixed;
+    position: absolute;
     width: 100%;
     text-align: center;
     padding: 10px;
@@ -137,15 +136,10 @@ z-index: 2;
 
     }
 
-    table, th, td {border: 1px solid #8d99ae;
+    table, th, td {border: 1px solid black;
         border-collapse: collapse;
         padding: 5px; margin: auto;
     }
-
-tr:nth-of-type(odd) {
-      background-color:#ccc;
-    }
-
     </style>
 
 </head>
@@ -170,46 +164,28 @@ tr:nth-of-type(odd) {
         <input type="submit" value="Logout"/>
     </form>
 
+    <div class="register_form">
+        <h2 style="text-align: left; position: absolute; left: 45px; top: 10px;">Update your BlogPlatform Account</h2>
+        <div class="register_form2">
+            <form th:action="@{/update_user/{id}(id=${user.Id})}" th:object="${user}" method="POST">
+                <div> <span>  <input type="text" th:field="*{firstName}"/> </span>
+                    <span><input type="text" th:field="*{lastName}"/></span>
+                </div>
+                <div style="margin-top: 20px;"><input type="text" th:field="*{email}" size="45"/></div>
+                <div style="margin-top: 20px;"> <span>  <input type="text" th:field="*{username}"/> </span>
+                    <span><input type="text" th:field="*{password}"/></span>
+                </div>
+                <br>
+                <div>
+                    <span><input type="radio" name="isEnabled" th:field="*{active}" value="true"> Active
+    <input type="radio" name="isEnabled"  th:field="*{active}" value="false"> Inactive</span>
+                </div>
 
-    <div style="border: 1px solid #ffbe0b; width: 70%; margin: auto; top: 60px; position: relative; padding: 10px 0 30px 0;">
-        <br>
-
-        <div style="margin: auto; text-align: center;">
-            <form th:action="@{/list_users}" method = "get" style=" margin: auto;">
-                <input type="text" name ="filter" th:value="${filter}">
-
-                <button type="submit">Find Username</button>
+                <button type = "submit" style="margin-top: 20px;">Update</button>
             </form>
+
+
         </div>
-
-        <br><br>
-
-        <table>
-            <tr>
-                <th><b>ID</b></th>
-                <th><b>Firstname</b></th>
-                <th><b>Lastname</b></th>
-                <th><b>Email</b></th>
-                <th><b>Username</b></th>
-                <th><b>Password</b></th>
-
-                <th><b>Active</b></th>
-                <th><b>Edit</b></th>
-            </tr>
-
-            <tr th:each ="user : ${users}">
-                <td th:utext="${user.id}">...</td>
-                <td th:utext="${user.firstName}">...</td>
-                <td th:utext="${user.lastName}">...</td>
-                <td th:utext="${user.email}">...</td>
-                <td th:utext="${user.username}">...</td>
-                <td th:utext="${user.password}">...</td>
-
-                <td th:utext="${user.active}">...</td>
-
-                <td><a th:href="@{/update_user/{id}(id=${user.Id})}" class="head_nav_list_item ">edit</a></td>
-            </tr>
-        </table>
 
     </div>
 
