@@ -161,4 +161,9 @@ public class MainViewController {
         model.addAttribute("errorMessage", "First Name & Last Name is required!");
         return "update_post";
     }
+
+    @GetMapping ("/about")
+    public String about (){
+        return "about";
+    }
 }
